@@ -15,16 +15,18 @@ jobs:
 
       - name: Check filenames for kebab case
         run: |
-           echo "Listing all files in the repository:"
-           invalid_files=$(find . -type f -name '*.md' \
-           -not -path "./node_modules/*" \
-           -not -name "README.md" \
-           -not -name "CONTRIBUTING.md" \
-           -exec basename {} \; | grep -vE '^[a-z0-9]+(-[a-z0-9]+)*\.md$'|| true)"
-           if [ -n "$invalid_files" ]; then
+          echo "Listing all files in the repository:"
+          invalid_files=$(find . -type f -name '*.md' \
+            -not -path "./node_modules/*" \
+            -not -name "README.md" \
+            -not -name "CONTRIBUTING.md" \
+            -exec basename {} \; | grep -vE '^[a-z0-9]+(-[a-z0-9]+)*\.md$' || true)
+          
+          if [ -n "$invalid_files" ]; then
             echo "The following Markdown filenames are not in kebab case:"
             echo "$invalid_files"
-           else
-              echo "All Markdown filenames are in kebab case."
-           fi
+            exit 1
+          else
+            echo "All Markdown filenames are in kebab case."
+          fi
 
