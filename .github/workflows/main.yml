@@ -15,6 +15,7 @@ jobs:
 
       - name: Check filenames for kebab case
         run: |
+         cd "$GITHUB_WORKSPACE"
          # Find all .md files excluding node_modules, README.md, and CONTRIBUTING.md, and check filenames for kebab case
           invalid_files=$(find . -type f -name '*.md' \
             -not -path "./node_modules/*" \
