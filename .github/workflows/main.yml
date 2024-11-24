@@ -22,5 +22,6 @@ jobs:
            -not -name "README.md" \
            -not -name "CONTRIBUTING.md" \
            -exec basename {} \; | grep -vE '^[a-z0-9]+(-[a-z0-9]+)*\.md$')
+           echo $?  
            echo "Hello WOrld"
 
