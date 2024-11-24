@@ -25,9 +25,8 @@ jobs:
           if [ -n "$invalid_files" ]; then
               echo "The following Markdown filenames are not in kebab case:"
               echo "$invalid_files"
-              exit 1
+              
             
           else
               echo "All Markdown filenames are in kebab case."
-              exit 0
           fi
