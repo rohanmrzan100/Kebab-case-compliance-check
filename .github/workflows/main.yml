@@ -16,7 +16,6 @@ jobs:
       - name: Check filenames for kebab case
         run: |
            echo "Listing all files in the repository:"
-           find . -type f
            invalid_files=$(find . -type f -name '*.md' \
            -not -path "./node_modules/*" \
            -not -name "README.md" \
