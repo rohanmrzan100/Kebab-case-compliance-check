@@ -21,6 +21,7 @@ jobs:
           echo "Changed Markdown files:"
           cat changed_files.txt
 
+<<<<<<< HEAD
       - name: Check for files not in kebab case
         id: kebab_case_check
         run: |
@@ -28,6 +29,14 @@ jobs:
           if [ -n "$non_kebab_case" ]; then
             echo "Files not in kebab case:"
             echo "$non_kebab_case"
+=======
+          # Find invalid filenames
+          invalid_files=$(echo "$changed_files" | grep -vE '^[a-z0-9]+(-[a-z0-9]+)*\.md$'  | xargs -n1 basename || true)
+
+          if [ -n "$invalid_files" ]; then
+            echo "The following Markdown filenames are not in kebab case:"
+            echo "$invalid_files"
+>>>>>>> 262c8d26f9a2902de1f756ff06df49c4fad1cd9e
             exit 1
           else
             echo "All Markdown files are in kebab case."
