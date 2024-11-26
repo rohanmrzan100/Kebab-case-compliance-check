@@ -20,4 +20,16 @@ jobs:
           git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }}  | grep -E '^.+\.md$'  > changed_files.txt
           echo "Changed Markdown files:"
           cat changed_files.txt
+
+      - name: Check for files not in kebab case
+        id: kebab_case_check
+        run: |
+          non_kebab_case=$(grep -v -E '^[a-z0-9]+(-[a-z0-9]+)*\.md$' changed_files.txt || true)
+          if [ -n "$non_kebab_case" ]; then
+            echo "Files not in kebab case:"
+            echo "$non_kebab_case"
+            exit 1
+          else
+            echo "All Markdown files are in kebab case."
+          fi
             
