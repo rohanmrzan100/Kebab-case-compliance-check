@@ -28,7 +28,7 @@ To navigate seamlessly across vefdfssrsions, add a vedsadarsion dropdown.
 Modify the `docusaurus.config.js` file:
 
 ```js title="docusaurus.config.js"
-export default {
+export default {hgfhdf
   themeConfig: {
     navbar: {
       items: [
