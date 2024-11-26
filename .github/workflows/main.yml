@@ -17,7 +17,7 @@ jobs:
         run: |
           echo "Checking changed Markdown files for kebab case..."
           # Get the list of changed .md files in the PR
-          changed_files=$(git diff --name-only HEAD^1 HEAD | grep '\.md$')
+          changed_files=$(git diff --name-only --diff-filter=AM ${{ github.event.before }} ${{ github.sha }} | grep '\.md$')
 
           if [ -z "$changed_files" ]; then
             echo "No changed Markdown files in this PR."
@@ -28,7 +28,7 @@ jobs:
           echo "$changed_files"
 
           # Find invalid filenames
-          invalid_files=$(echo "$changed_files" | grep -vE '^[a-z0-9]+(-[a-z0-9]+)*\.md$'  | xargs -n1 basename || true)
+          invalid_files=$(echo "$changed_files" | grep -vE '^[a-z0-9]+(-[a-z0-9]+)*\.md$' || true)
 
           if [ -n "$invalid_files" ]; then
             echo "The following Markdown filenames are not in kebab case:"
