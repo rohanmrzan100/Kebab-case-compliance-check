@@ -28,7 +28,7 @@ jobs:
           echo "$changed_files"
 
           # Find invalid filenames
-          invalid_files=$(echo "$changed_files" | grep -vE '^[a-z0-9]+(-[a-z0-9]+)*\.md$' || true)
+          invalid_files=$(echo "$changed_files" | grep -vE '^[a-z0-9]+(-[a-z0-9]+)*\.md$'  | xargs -n1 basename || true)
 
           if [ -n "$invalid_files" ]; then
             echo "The following Markdown filenames are not in kebab case:"
