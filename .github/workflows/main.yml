@@ -17,5 +17,5 @@ jobs:
 
       - name: List all changed files
         run: |
-          echo "$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }}  | grep -vE '^[a-z0-9]+(-[a-z0-9]+)*\.md$')"
+          echo "$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }}  | grep -vE '^.+\.md$)"
             
