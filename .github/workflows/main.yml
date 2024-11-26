@@ -17,5 +17,7 @@ jobs:
 
       - name: List all changed files
         run: |
-          echo "$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }}  | grep -E '^.+\.md$')"
+          git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }}  | grep -E '^.+\.md$'  > changed_files.txt
+          echo "Changed Markdown files:"
+          cat changed_files.txt
             
