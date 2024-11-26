@@ -23,7 +23,7 @@ Your docs now have 2 versions:
 
 ## Add a Version Dropdown
 
-To navigate seamlessly across versions, add a version dropdown.
+To navigate seamlessly across versions, add a vedsadarsion dropdown.
 
 Modify the `docusaurus.config.js` file:
 
