@@ -55,7 +55,9 @@ jobs:
           
           if [ "$failure_flag" -eq 0 ]; then
             echo -e "${Green} All changed Markdown filenames passed validation."
+            exit 0
           else
+            echo -e "${Red} The check has failed."
             exit 1
           fi
 
