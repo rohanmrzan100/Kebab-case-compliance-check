@@ -17,10 +17,16 @@ jobs:
 
       - name: Check filenames for kebab case
         run: |
+
+          Red='\033[0;31m'          # Red
+          Green='\033[0;32m'        # Green
+          Yellow='\033[0;33m'       # Yellow
+          Blue='\033[0;34m'         # Blue
+          
           echo "Checking changed Markdown files for kebab case..."
           changed_files=$(git diff --name-only  HEAD^1 HEAD | xargs -n1 basename  | grep '\.md$')
           if [ -z "$changed_files" ]; then
-            echo "No changed Markdown files in this PR."
+            echo "${Green} No changed Markdown files in this PR."
             exit 0
           fi
           # Find invalid filenames
@@ -30,20 +36,20 @@ jobs:
            failure_flag=0
 
           if [ -n "$long_files" ]; then
-            echo "The following Markdown filenames exceed 100 characters:"
-            echo "$long_files"
+            echo "${Blue} The following Markdown filenames exceed 100 characters:"
+            echo "${Red} $long_files"
             failure_flag=1
           fi
           
           # Check for Markdown filenames that are not in kebab case
           if [ -n "$invalid_files" ]; then
-            echo "The following Markdown filenames are not in kebab case:"
-            echo "$invalid_files"
+            echo " ${Blue} The following Markdown filenames are not in kebab case:"
+            echo "${Red} $invalid_files"
             failure_flag=1
           fi
           
           if [ "$failure_flag" -eq 0 ]; then
-            echo "All changed Markdown filenames passed validation."
+            echo " ${Green} All changed Markdown filenames passed validation."
           else
             exit 1
           fi
