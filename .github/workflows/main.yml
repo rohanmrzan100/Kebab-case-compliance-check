@@ -1,4 +1,4 @@
-name: Check Kebab Case for Changed Markdown Files in PR
+name: MarkDown filename validation
 
 on:
   pull_request: # Trigger on PR events
@@ -22,11 +22,12 @@ jobs:
           Green='\033[0;32m'        # Green
           Yellow='\033[0;33m'       # Yellow
           Blue='\033[0;34m'         # Blue
+          Reset='\033[0m'           # Reset
           
           echo  -e "${Blue} Checking all changed Markdown files ..."
           changed_files=$(git diff --name-only  HEAD^1 HEAD | xargs -n1 basename  | grep '\.md$')
           if [ -z "$changed_files" ]; then
-            echo -e "${Green} No changed Markdown files in this PR."
+            echo -e "${Green} No changed Markdown files in this PR.${Reset}"
             exit 0
           fi
           
@@ -38,26 +39,30 @@ jobs:
 
           # Check for Markdown filenames that are not in kebab case
           if [ -n "$invalid_kebab_case" ]; then
-            echo -e "${Blue} The following Markdown filenames are not in kebab case:"
-            echo -e "${Red} $invalid_kebab_case"
+            echo -e "${Blue} The following Markdown filenames are not in kebab case:${Reset}"
+            echo "$invalid_kebab_case" | while read -r file; do
+              echo -e "${Red}$file${Reset}"
+            done
             failure_flag=1
           else
             echo -e "${Green} All changed Markdown filenames are  in kebab case."
           fi
           
            if [ -n "$long_files" ]; then
-            echo -e "${Blue} The following Markdown filenames exceed 100 characters:"
-            echo -e "${Red} $long_files"
+            echo -e "${Blue} The following Markdown filenames exceed 100 characters:${Reset}"
+            echo "$long_files$" | while read -r file; do
+              echo -e "${Red}$long_files$${Reset}"
+            done
             failure_flag=1
            else
-            echo -e "${Green} All changed Markdown filenames are  of valid length."
+            echo -e "${Green} All changed Markdown filenames are  of valid length.${Reset}"
           fi
           
           if [ "$failure_flag" -eq 0 ]; then
-            echo -e "${Green} All changed Markdown filenames passed validation."
+            echo -e "${Green} All changed Markdown filenames passed validation.${Reset}"
             exit 0
           else
-            echo -e "${Red} The check has failed."
+            echo -e "${Red} The check has failed.${Reset}"
             exit 1
           fi
 
