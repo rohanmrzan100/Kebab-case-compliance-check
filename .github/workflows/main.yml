@@ -51,7 +51,7 @@ jobs:
            if [ -n "$long_files" ]; then
             echo -e "${Blue} The following Markdown filenames exceed 100 characters:${Reset}"
             echo "$long_files$" | while read -r file; do
-              echo -e "${Red}$long_files$${Reset}"
+              echo -e "${Red}$long_files${Reset}"
             done
             failure_flag=1
            else
