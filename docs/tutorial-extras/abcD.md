@@ -22,7 +22,7 @@ export default {
 ## Translate a doc
 
 Copy the `docs/intro.md` file to the `i18n/fr` folder:
-
+das
 ```bash
 mkdir -p i18n/fr/docusaurus-plugin-content-docs/current/
 
