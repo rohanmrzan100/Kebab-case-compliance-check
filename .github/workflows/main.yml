@@ -18,7 +18,7 @@ jobs:
       - name: Check filenames for kebab case
         run: |
           echo "Checking changed Markdown files for kebab case..."
-          changed_files=$(git diff --name-only --diff-filter=AM HEAD^1 HEAD | xargs -n1 basename  | grep '\.md$')
+          changed_files=$(git diff --name-only  HEAD^1 HEAD | xargs -n1 basename  | grep '\.md$')
           if [ -z "$changed_files" ]; then
             echo "No changed Markdown files in this PR."
             exit 0
